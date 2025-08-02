@@ -1,19 +1,67 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SuperMarketComparison.Data;
 using SuperMarketComparison.Models;
 
 namespace SuperMarketComparison.Controllers
 {
     public class ItemsController : Controller
     {
-        public IActionResult Overview()
+        private readonly SMCContext _context;
+        public ItemsController(SMCContext context )
         {
-            var item = new Item() { Name = "papel higienico" };
+            _context = context;
+        }
+
+        // view INDEX
+        public async Task<IActionResult> Index()
+        {
+            var item = await _context.Items.ToListAsync();
+            return View(item);
+        }
+        // view CREATE
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // update DB CREATE new item
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("Id, Name, Description")] Item item)
+        {
+            if(ModelState.IsValid)
+            {
+                _context.Items.Add(item);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(item);
+        }
+        
+        // view EDIT
+        public async Task<IActionResult> Edit(int id)
+        {
+            var item = await _context.Items.FirstOrDefaultAsync(x => x.Id == id);
+            return View(item);
+        }
+        // update DB UPDATE item
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("Id, Name, Description")] Item item)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Items.Update(item);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
             return View(item);
         }
 
-        public IActionResult Edit(int id)
+        // view DELETE
+        public async Task<IActionResult> Delete(int id)
         {
-            return Content("id= " + id);
+            var item = await _context.Items.FirstOrDefaultAsync(x => x.Id == id);
+            return View(item);
         }
     }
 }
