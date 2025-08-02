@@ -63,5 +63,17 @@ namespace SuperMarketComparison.Controllers
             var item = await _context.Items.FirstOrDefaultAsync(x => x.Id == id);
             return View(item);
         }
+        //update DB DELETE item
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var item = await _context.Items.FindAsync(id);
+            if (item != null)
+            {
+                _context.Items.Remove(item);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
