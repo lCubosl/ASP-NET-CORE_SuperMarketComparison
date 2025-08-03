@@ -7,5 +7,6 @@ namespace SuperMarketComparison.Data
     {
         public SMCContext(DbContextOptions<SMCContext> options) : base(options) { }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Store> Stores { get; set; }
     }
 }
