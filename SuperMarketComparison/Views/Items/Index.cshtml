@@ -11,6 +11,9 @@
         <tr>
             <th>Name</th>
             <th>Description</th>
+            <th>Max Price</th>
+            <th>Min Price</th>
+            <th>Avg Price</th>
             <th class="text-end">Actions</th>
         </tr>
     </thead>
@@ -19,8 +22,12 @@
         @foreach(var item in Model)
         {
             <tr>
-                <td>@item.Name</td>
+                @* Change asp action to Item -> Route to item overview, and table of price updates *@
+                <td><a asp-action="Edit" asp-route-id="@item.Id">@item.Name</a></td>
                 <td>@item.Description</td>
+                <td>temp.</td>
+                <td>temp.</td>
+                <td>temp.</td>
                 <td class="text-end">
                     <a class="btn btn-sm btn-info text-light" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
