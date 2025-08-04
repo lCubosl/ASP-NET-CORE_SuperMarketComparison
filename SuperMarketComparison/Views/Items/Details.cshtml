@@ -1,0 +1,41 @@
+﻿@model SuperMarketComparison.Models.Item
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h3>@Model.Name <a class="btn btn-primary fw-bolder" asp-controller="ItemStorePrices" asp-action="Create">+</a></h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Store</th>
+            <th>Price</th>
+            <th>Last Update</th>
+            <th class="text-end">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach(var item in Model.Prices)
+        {            
+            <tr>
+                <td>@item.Store.Name</td>
+                @* Change Price to @priceEntry.Price.ToString("C") for local currency *@
+                <td>@item.Price.ToString("N2") €</td>
+                <td>@item.LastUpdate.ToString("dd-MM-yyyy")</td>
+                <td class="text-end">
+                    @* Update buttons and add functionality to them *@
+                    <a class="btn btn-sm btn-primary">Update</a>
+                    <a class="btn btn-sm btn-info text-light">Edit</a>
+                    <a class="btn btn-sm btn-danger">Delete</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="mt-2">
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</div>

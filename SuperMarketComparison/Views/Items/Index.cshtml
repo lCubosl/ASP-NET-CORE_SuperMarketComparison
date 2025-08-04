@@ -22,8 +22,13 @@
         @foreach(var item in Model)
         {
             <tr>
-                @* Change asp action to Item -> Route to item overview, and table of price updates *@
-                <td><a asp-action="Edit" asp-route-id="@item.Id">@item.Name</a></td>
+                @* change text to less bold *@
+                <td>
+                    <a class="hover-item text-decoration-none fw-bold text-dark" asp-action="Details" asp-route-id="@item.Id">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        @item.Name
+                    </a>
+                </td>
                 <td>@item.Description</td>
                 <td class="text-secondary">temp.</td>
                 <td class="text-secondary">temp.</td>

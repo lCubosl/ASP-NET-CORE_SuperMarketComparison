@@ -13,6 +13,22 @@ namespace SuperMarketComparison.Controllers
             _context = context;
         }
 
+        // ./items/{id}
+        // view DETAILS /items/{id}
+        public async Task<IActionResult> Details(int id)
+        {
+            var item = await _context.Items
+                .Include(i => i.Prices)
+                    .ThenInclude(isp => isp.Store)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            
+            if (item == null)
+                return NotFound();
+
+            return View(item);
+        }
+
+        // INDEX
         // view INDEX
         public async Task<IActionResult> Index()
         {
@@ -25,6 +41,7 @@ namespace SuperMarketComparison.Controllers
             return View();
         }
 
+        // CREATE
         // update DB CREATE new item
         [HttpPost]
         public async Task<IActionResult> Create([Bind("Id, Name, Description")] Item item)
@@ -38,6 +55,7 @@ namespace SuperMarketComparison.Controllers
             return View(item);
         }
         
+        // EDIT
         // view EDIT
         public async Task<IActionResult> Edit(int id)
         {
@@ -57,6 +75,7 @@ namespace SuperMarketComparison.Controllers
             return View(item);
         }
 
+        // DELETE
         // view DELETE
         public async Task<IActionResult> Delete(int id)
         {
