@@ -1,0 +1,31 @@
+﻿@model List<SuperMarketComparison.Models.Store>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Stores</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th class="text-end">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Location</td>
+                <td class="text-end">
+                    @* <a class="btn btn-sm btn-info text-light" asp-action="Edit" asp-route-itemid="@item.Id">Edit</a>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-itemid="@item.Id">Delete</a> *@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

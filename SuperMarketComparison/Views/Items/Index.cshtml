@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h3>Index</h3>
+<h3>Items</h3>
 
 <table class="table">
     <thead>
@@ -25,9 +25,9 @@
                 @* Change asp action to Item -> Route to item overview, and table of price updates *@
                 <td><a asp-action="Edit" asp-route-id="@item.Id">@item.Name</a></td>
                 <td>@item.Description</td>
-                <td>temp.</td>
-                <td>temp.</td>
-                <td>temp.</td>
+                <td class="text-secondary">temp.</td>
+                <td class="text-secondary">temp.</td>
+                <td class="text-secondary">temp.</td>
                 <td class="text-end">
                     <a class="btn btn-sm btn-info text-light" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
