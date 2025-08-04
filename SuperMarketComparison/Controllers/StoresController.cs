@@ -35,7 +35,7 @@ namespace SuperMarketComparison.Controllers
             {
                 _context.Stores.Add(store);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Items");
+                return RedirectToAction("Index");
             }
             return View(store);
         }
