@@ -9,6 +9,11 @@ namespace SuperMarketComparison.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ItemStorePrice>()
+                .HasOne(x => x.Item)
+                .WithMany(x => x.Prices)
+                .IsRequired(false);
+
             // SEED ITEM create test STORE model on db
             modelBuilder.Entity<Store>().HasData(
                 new Store { Id=1, Name="Test Store", Location= "Location 1" });

@@ -41,12 +41,13 @@ namespace SuperMarketComparison.Controllers
 
         // update db CREATE new itemstoreprice
         [HttpPost]
-        public async Task<IActionResult> Create(int id, [Bind("ItemId, StoreId, Price, LastUpdate")] ItemStorePrice model)
+        public async Task<IActionResult> Create([Bind("ItemId, StoreId, Price, LastUpdate")] ItemStorePrice model)
         {
             Console.WriteLine("POST for itemstoreprice triggered");
 
             if (ModelState.IsValid)
             {
+                Console.WriteLine("ModelState IS VALID");
                 _context.ItemStorePrices.Add(model);
                 await _context.SaveChangesAsync();
 
@@ -54,7 +55,7 @@ namespace SuperMarketComparison.Controllers
             }
 
             // log for validation errors 
-            foreach(var state in ModelState)
+            foreach (var state in ModelState)
             {
                 foreach (var error in state.Value.Errors)
                     Console.WriteLine($"Key: {state.Key} Error: {error.ErrorMessage}");

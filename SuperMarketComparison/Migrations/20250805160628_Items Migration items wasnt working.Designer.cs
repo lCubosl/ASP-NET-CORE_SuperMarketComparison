@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SuperMarketComparison.Data;
 
@@ -11,9 +12,11 @@ using SuperMarketComparison.Data;
 namespace SuperMarketComparison.Migrations
 {
     [DbContext(typeof(SMCContext))]
-    partial class SMCContextModelSnapshot : ModelSnapshot
+    [Migration("20250805160628_Items Migration items wasnt working")]
+    partial class ItemsMigrationitemswasntworking
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,7 +118,9 @@ namespace SuperMarketComparison.Migrations
                 {
                     b.HasOne("SuperMarketComparison.Models.Item", "Item")
                         .WithMany("Prices")
-                        .HasForeignKey("ItemId");
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SuperMarketComparison.Models.Store", "Store")
                         .WithMany("Prices")
