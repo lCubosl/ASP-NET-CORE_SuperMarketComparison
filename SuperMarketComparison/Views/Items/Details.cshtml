@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h3>@Model.Name <a class="btn btn-primary fw-bolder" asp-controller="ItemStorePrices" asp-action="Create">+</a></h3>
+<h3>@Model.Name <a class="btn btn-primary fw-bolder" asp-controller="ItemStorePrices" asp-action="Create" asp-route-id="@Model.Id">+</a></h3>
 
 <table class="table">
     <thead>

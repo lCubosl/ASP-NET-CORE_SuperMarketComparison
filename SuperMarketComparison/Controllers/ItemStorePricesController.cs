@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SuperMarketComparison.Data;
 using SuperMarketComparison.Models;
+using System.Threading.Tasks;
 
 namespace SuperMarketComparison.Controllers
 {
@@ -12,14 +13,21 @@ namespace SuperMarketComparison.Controllers
             _context = context;
         }
 
-        public IActionResult Create(int id)
+        public async Task<IActionResult> Create(int id)
         {
-            var item = new ItemStorePrice
+            var item = await _context.Items.FindAsync(id);
+            
+            if (item == null)
+                return NotFound();
+
+            var model = new ItemStorePrice
             {
-                Id = id
+                ItemId = id,
+                Item = item,
+                LastUpdate = DateTime.Today
             };
 
-            return View();
+            return View(model);
         }
     }
 }
