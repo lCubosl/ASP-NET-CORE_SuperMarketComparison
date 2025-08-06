@@ -19,14 +19,19 @@ namespace SuperMarketComparison.Controllers
         // view CREATE /itemstoreprices/create/{id}
         public async Task<IActionResult> Create(int id)
         {
-            Console.WriteLine("VIEW for itemstoreprice triggered");
-            
-            var item = await _context.Items.FindAsync(id);
+            var item = await _context.Items
+                .Include(i => i.Prices)
+                .FirstOrDefaultAsync(i => i.Id == id);
             
             if (item == null)
                 return NotFound();
 
-            var stores = await _context.Stores.ToListAsync();
+            var usedStoreIds = item.Prices.Select(p => p.StoreId).ToList();
+
+            var stores = await _context.Stores
+                .Where(s => !usedStoreIds.Contains(s.Id))
+                .ToListAsync();
+
             ViewBag.StoreList = new SelectList(stores, "Id", "Name");
 
             var model = new ItemStorePrice
@@ -85,6 +90,21 @@ namespace SuperMarketComparison.Controllers
             return View(item);
         }
         // update db EDIT itemstoreprice
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("Id, ItemId, StoreId, Price, LastUpdate")] ItemStorePrice model)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.ItemStorePrices.Update(model);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Details", "Items", new { id = model.ItemId });
+            }
+
+            var stores = await _context.Stores.ToListAsync();
+            ViewBag.StoreList = new SelectList(stores, "Id", "Name");
+
+            return View(model);
+        }
 
         // UPDATE
         // view UPDATE /itemstoreprices/update/{id}
@@ -116,6 +136,17 @@ namespace SuperMarketComparison.Controllers
 
             return View(item);
         }
-
+        // update db DELETE itemstoreprice
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var item = await _context.ItemStorePrices.FindAsync(id);
+            if (item != null)
+            {
+                _context.ItemStorePrices.Remove(item);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Details", "Items", new { id= item.ItemId });
+        }
     }
 }

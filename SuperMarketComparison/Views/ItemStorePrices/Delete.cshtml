@@ -11,6 +11,9 @@
 <p>@Model.LastUpdate.ToString("dd-MM-yyyy")</p>
 
 <div class="mt-2">
-    @* <button type="submit" class="btn btn-danger">Submit</button> *@
-    <a asp-controller="Items" asp-action="Details" asp-route-id="@Model.ItemId" class="btn btn-secondary">Back</a>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" class="btn btn-danger" value="Delete" />
+        <a asp-controller="Items" asp-action="Details" asp-route-id="@Model.ItemId" class="btn btn-secondary">Back</a>
+    </form>
 </div>

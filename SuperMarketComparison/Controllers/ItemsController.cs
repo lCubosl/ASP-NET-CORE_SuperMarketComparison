@@ -34,6 +34,7 @@ namespace SuperMarketComparison.Controllers
         {
             var item = await _context.Items
                 .Include (i => i.Prices)
+                .ThenInclude(isp => isp.Store)
                 .ToListAsync();
             return View(item);
         }

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h3>New Store Price for item: <strong>@Model.Item.Name</strong></h3>
+<h3>New Store Price for item: <strong>@Model.Item?.Name</strong></h3>
 
 <div class="container">
     <form class="col-6" asp-action="Create" asp-route-id="@Model.ItemId" method="post">

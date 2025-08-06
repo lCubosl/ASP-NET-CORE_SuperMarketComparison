@@ -24,6 +24,10 @@
             var prices = item.Prices;
             var minPrice = prices.Any() ? prices.Min(p => p.Price) : (decimal?)null;
             var maxPrice = prices.Any() ? prices.Max(p => p.Price) : (decimal?)null;
+            var avgPrice = prices.Any() ? prices.Average(p => p.Price) : (decimal?)null;
+
+            var minPriceEntry = prices.FirstOrDefault(p => p.Price == minPrice);
+            var maxPriceEntry = prices.FirstOrDefault(p => p.Price == maxPrice);
 
             <tr>
                 @* change text to less bold *@
@@ -33,28 +37,45 @@
                         @item.Name
                     </a>
                 </td>
+
                 <td>@item.Description</td>
+
                 <td>
                     @if (minPrice.HasValue)
                     {
                         <span>@minPrice.Value.ToString("N2") €</span>
+                        <br />
+                        <span class="small text-secondary">@minPriceEntry?.Store?.Name</span>
                     }
                     else
                     {
                         <span class="text-muted">N/A</span>
                     }
                 </td>
+
                 <td>
                     @if (maxPrice.HasValue)
                     {
                         <span>@maxPrice.Value.ToString("N2") €</span>
+                        <br />
+                        <span class="small text-secondary">@maxPriceEntry?.Store?.Name</span>
                     }
                     else
                     {
                         <span class="text-muted">N/A</span>
                     }
                 </td>
-                <td class="text-secondary">temp.</td>
+
+                <td>
+                    @if (avgPrice.HasValue)
+                    {
+                        <span>@avgPrice.Value.ToString("N2") €</span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">N/A</span>
+                    }
+                </td>
                 <td class="text-end">
                     <a class="btn btn-sm btn-info text-light" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>

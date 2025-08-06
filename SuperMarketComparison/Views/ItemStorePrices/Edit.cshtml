@@ -12,6 +12,28 @@
     If the item price was updated, please select the <strong class="btn btn-primary">"Update"</strong> Button.
 </p>
 
-<div class="mt-2">
-    <a asp-controller="Items" asp-action="Details" asp-route-id="@Model.ItemId" class="btn btn-secondary">Back</a>
-</div>
+<form class="col-6" asp-action="Edit" asp-route-id="@Model.ItemId" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ItemId" />
+
+    <div class="form-group">
+        <label for="StoreId">Store</label>
+        <input type="text" class="form-control" value="@Model.Store?.Name" readonly />
+        <input type="hidden" asp-for="StoreId" />
+    </div>
+
+    <div class="form-group">
+        <label for="Price">Price</label>
+        <input type="number" class="form-control" asp-for="Price" step="0.01" />
+    </div>
+
+    <div class="form-group">
+        <label for="LastUpdate">Date</label>
+        <input type="date" class="form-control" asp-for="LastUpdate" required />
+    </div>
+
+    <div class="mt-2">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a asp-controller="Items" asp-action="Details" asp-route-id="@Model.ItemId" class="btn btn-secondary">Back</a>
+    </div>
+</form>
