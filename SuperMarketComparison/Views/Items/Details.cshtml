@@ -4,6 +4,11 @@
     ViewData["Title"] = "Details";
 }
 
+@{
+    var minPrice = Model.Prices.Min(p => (decimal?)p.Price);
+    var maxPrice = Model.Prices.Max(p => (decimal?)p.Price);
+}
+
 <h3>@Model.Name <a class="btn btn-primary fw-bolder" asp-controller="ItemStorePrices" asp-action="Create" asp-route-id="@Model.Id">+</a></h3>
 
 <table class="table">
@@ -18,8 +23,19 @@
 
     <tbody>
         @foreach(var item in Model.Prices)
-        {            
-            <tr>
+        {
+            string rowClass = "";
+
+            if(item.Price == minPrice)
+            {
+                rowClass = "table-success";
+            }
+            else if (item.Price == maxPrice)
+            {
+                rowClass = "table-danger";
+            }
+
+            <tr class="@rowClass">
                 <td>@item.Store.Name</td>
                 @* Change Price to @priceEntry.Price.ToString("C") for local currency *@
                 <td>@item.Price.ToString("N2") €</td>
@@ -28,9 +44,8 @@
                     @* Update buttons and add functionality to them *@
                     <a asp-controller="ItemStorePrices" asp-action="Update" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Update</a>
                     <a asp-controller="ItemStorePrices" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-info text-light">Edit</a>
-                    <a class="btn btn-sm btn-danger">Delete</a>
+                    <a asp-controller="ItemStorePrices" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-sm btn-danger">Delete</a>
                 </td>
-
             </tr>
         }
     </tbody>

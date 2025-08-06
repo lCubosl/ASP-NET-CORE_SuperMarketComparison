@@ -11,8 +11,8 @@
         <tr>
             <th>Name</th>
             <th>Description</th>
-            <th>Max Price</th>
             <th>Min Price</th>
+            <th>Max Price</th>
             <th>Avg Price</th>
             <th class="text-end">Actions</th>
         </tr>
@@ -21,6 +21,10 @@
     <tbody>
         @foreach(var item in Model)
         {
+            var prices = item.Prices;
+            var minPrice = prices.Any() ? prices.Min(p => p.Price) : (decimal?)null;
+            var maxPrice = prices.Any() ? prices.Max(p => p.Price) : (decimal?)null;
+
             <tr>
                 @* change text to less bold *@
                 <td>
@@ -30,8 +34,26 @@
                     </a>
                 </td>
                 <td>@item.Description</td>
-                <td class="text-secondary">temp.</td>
-                <td class="text-secondary">temp.</td>
+                <td>
+                    @if (minPrice.HasValue)
+                    {
+                        <span>@minPrice.Value.ToString("N2") €</span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">N/A</span>
+                    }
+                </td>
+                <td>
+                    @if (maxPrice.HasValue)
+                    {
+                        <span>@maxPrice.Value.ToString("N2") €</span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">N/A</span>
+                    }
+                </td>
                 <td class="text-secondary">temp.</td>
                 <td class="text-end">
                     <a class="btn btn-sm btn-info text-light" asp-action="Edit" asp-route-id="@item.Id">Edit</a>

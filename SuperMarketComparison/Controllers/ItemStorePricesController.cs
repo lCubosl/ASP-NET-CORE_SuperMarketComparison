@@ -38,7 +38,6 @@ namespace SuperMarketComparison.Controllers
 
             return View(model);
         }
-
         // update db CREATE new itemstoreprice
         [HttpPost]
         public async Task<IActionResult> Create([Bind("ItemId, StoreId, Price, LastUpdate")] ItemStorePrice model)
@@ -85,5 +84,38 @@ namespace SuperMarketComparison.Controllers
 
             return View(item);
         }
+        // update db EDIT itemstoreprice
+
+        // UPDATE
+        // view UPDATE /itemstoreprices/update/{id}
+        public async Task<IActionResult> Update(int id)
+        {
+            var item = await _context.ItemStorePrices
+                .Include(i => i.Item)
+                .Include(i => i.Store)
+                .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (item == null)
+                return NotFound();
+
+            return View(item);
+        }
+        // update db UPDATE itemstoreprice
+
+        // DELETE
+        // view DELETE /itemstoreprices/delete/{id}
+        public async Task<IActionResult> Delete(int id)
+        {
+            var item = await _context.ItemStorePrices
+                .Include(i => i.Item)
+                .Include(i => i.Store)
+                .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (item == null)
+                return NotFound();
+
+            return View(item);
+        }
+
     }
 }

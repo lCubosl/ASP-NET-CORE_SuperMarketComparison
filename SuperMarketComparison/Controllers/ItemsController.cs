@@ -19,7 +19,7 @@ namespace SuperMarketComparison.Controllers
         {
             var item = await _context.Items
                 .Include(i => i.Prices)
-                    .ThenInclude(isp => isp.Store)
+                .ThenInclude(isp => isp.Store)
                 .FirstOrDefaultAsync(x => x.Id == id);
             
             if (item == null)
@@ -32,7 +32,9 @@ namespace SuperMarketComparison.Controllers
         // view INDEX
         public async Task<IActionResult> Index()
         {
-            var item = await _context.Items.ToListAsync();
+            var item = await _context.Items
+                .Include (i => i.Prices)
+                .ToListAsync();
             return View(item);
         }
         // view CREATE
