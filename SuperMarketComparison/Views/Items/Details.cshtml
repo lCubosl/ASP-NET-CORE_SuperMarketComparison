@@ -26,7 +26,7 @@
                 <td>@item.LastUpdate.ToString("dd-MM-yyyy")</td>
                 <td class="text-end">
                     @* Update buttons and add functionality to them *@
-                    <a class="btn btn-sm btn-primary">Update</a>
+                    <a asp-controller="ItemStorePrices" asp-action="Update" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Update</a>
                     <a asp-controller="ItemStorePrices" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-info text-light">Edit</a>
                     <a class="btn btn-sm btn-danger">Delete</a>
                 </td>
