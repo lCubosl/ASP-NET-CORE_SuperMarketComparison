@@ -5,6 +5,12 @@
 }
 
 <h3>New Store Price for item: <strong>@Model.Item?.Name</strong></h3>
+<p class="text-muted">
+    If the store you want to add a price for isn`t showing up, you probably have already added a price for it.
+    <br />
+    If so, please use the <span class="btn btn-sm btn-info">Edit</span> or <span class="btn btn-sm btn-primary">Update</span> 
+    options for editing or updating the store price for that Item.
+</p>
 
 <div class="container">
     <form class="col-6" asp-action="Create" asp-route-id="@Model.ItemId" method="post">
