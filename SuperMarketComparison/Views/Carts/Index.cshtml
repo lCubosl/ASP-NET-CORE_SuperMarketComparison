@@ -1,8 +1,76 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model SuperMarketComparison.Models.Cart
+
 @{
     ViewData["Title"] = "Index";
 }
 
 <h3><i class="fa-solid fa-cart-shopping"></i> My Shopping Cart</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Added</th>
+            <th>Min Price</th>
+            <th>Max Price</th>
+            <th class="text-end">Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.CartItems)
+        {
+            var currentItem = item.ItemStorePrice.Item;
+            var allPrices = currentItem?.Prices;
+
+            var minPrice = allPrices.Any() ? allPrices.Min(p => p.Price) : (decimal?)null;
+            var maxPrice = allPrices.Any() ? allPrices.Max(p => p.Price) : (decimal?)null;
+
+            <tr>
+                <td>@currentItem?.Name</td>
+                
+                <td>
+                    <input
+                        type="checkbox"
+                        disabled
+                        style="transform: scale(2);"                        
+                        @(item.IsChecked ? "checked" : "") 
+                    />
+                </td>
+
+                <td>
+                    @if (minPrice.HasValue)
+                    {
+                        <span>@minPrice?.ToString("N2") €</span>
+                    }
+                </td>
+
+                <td>
+                    @if (maxPrice.HasValue)
+                    {
+                        <span>@(maxPrice?.ToString("N2") ?? "N/A") €</span>
+                    }
+                </td>
+
+                <td class="text-end">
+                    <a class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }        
+        <tr>
+            <td><a class="btn btn-sm btn-primary"><i class="fa-solid fa-plus text-white"></i> Item</a></td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td class="text-end">-</td>
+        </tr>
+
+        <tr>
+            <td class="fw-bold">TOTAL:</td>
+            <td>-</td>
+            <td class="fw-bold">@ViewBag.TotalMin.ToString("N2") €</td>
+            <td class="fw-bold">@ViewBag.TotalMax.ToString("N2") €</td>
+            <td class="text-end">-</td>
+        </tr>
+    </tbody>
+</table>
