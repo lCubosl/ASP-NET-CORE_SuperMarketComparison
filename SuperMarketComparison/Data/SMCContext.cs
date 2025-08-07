@@ -9,10 +9,25 @@ namespace SuperMarketComparison.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // itemStorePrice to Item (many-to-one)
             modelBuilder.Entity<ItemStorePrice>()
                 .HasOne(x => x.Item)
                 .WithMany(x => x.Prices)
                 .IsRequired(false);
+
+            // CartItem to Cart (many-to-one)
+            modelBuilder.Entity<CartItem>()
+                .HasOne(ci => ci.Cart)
+                .WithMany(c => c.CartItems)
+                .HasForeignKey(ci => ci.CartId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // CartItem to ItemStorePrice (many-to-one)
+            modelBuilder.Entity<CartItem>()
+                .HasOne(ci => ci.ItemStorePrice)
+                .WithMany()
+                .HasForeignKey(ci => ci.ItemStorePriceId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // SEED ITEM create test STORE model on db
             modelBuilder.Entity<Store>().HasData(
@@ -28,10 +43,26 @@ namespace SuperMarketComparison.Data
                     Price=1.00m,
                     LastUpdate= new DateTime(2025,8,4)
                 });
+
+            // SEED ITEM create test CART on db
+            modelBuilder.Entity<Cart>().HasData(
+                new Cart { Id=1 });
+
+            // SEED ITEM create CARTITEM on db
+            modelBuilder.Entity<CartItem>().HasData(
+                new CartItem
+                {
+                    Id = 1,
+                    CartId = 1,
+                    ItemStorePriceId = 1,
+                    IsChecked = false
+                });
         }
 
         public DbSet<Item> Items { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<ItemStorePrice> ItemStorePrices { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet <CartItem> CartItems { get; set; }
     }
 }

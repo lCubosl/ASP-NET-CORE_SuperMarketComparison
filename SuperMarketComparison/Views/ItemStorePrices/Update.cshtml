@@ -7,9 +7,16 @@
 <h3>Update Price for item</h3>
 
 <p class="text-secondary">
-    This action will CREATE a new instance of the item price for the item with the current date. <br />
-    This action WILL update the "Date" / "Last Updated Date". <br />
+    This action will CREATE a new instance of the item price for the item with the current date.
+    <br />
+    This action WILL update the "Date" / "Last Updated Date". 
+    <br />
     If the store updated the item price, please select this option.
+</p>
+<p class="text-danger">
+    This functionality is still in development. For now, use the 
+    <a asp-controller="ItemStorePrices" asp-action="Edit" asp-route-id="@Model.ItemId" class="btn btn-info text-white">Edit</a>
+    Button if you want to update the store price for this item.
 </p>
 
 <div class="mt-2">
