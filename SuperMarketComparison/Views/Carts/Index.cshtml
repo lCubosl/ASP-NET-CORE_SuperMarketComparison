@@ -32,9 +32,9 @@
                 <td>
                     <input
                         type="checkbox"
-                        disabled
-                        style="transform: scale(2);"                        
+                        data-cartitem-id="@item.Id"
                         @(item.IsChecked ? "checked" : "") 
+                        style="transform: scale(2);"                        
                     />
                 </td>
 
@@ -58,7 +58,7 @@
             </tr>
         }        
         <tr>
-            <td><a class="btn btn-sm btn-primary"><i class="fa-solid fa-plus text-white"></i> Item</a></td>
+            <td><a asp-action="Add" class="btn btn-sm btn-primary"><i class="fa-solid fa-plus text-white"></i> Item</a></td>
             <td>-</td>
             <td>-</td>
             <td>-</td>

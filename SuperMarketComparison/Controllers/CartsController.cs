@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SuperMarketComparison.Data;
 
@@ -47,6 +48,17 @@ namespace SuperMarketComparison.Controllers
             ViewBag.totalMax = totalMax;
             
             return View(cart);
+        }
+
+        // ADD ./carts
+        // view ADD /carts/add
+        public IActionResult Add()
+        {
+            var item = _context.Items.ToList();
+
+            ViewBag.ItemList = new SelectList(item, "Id", "Name");
+
+            return View();
         }
     }
 }
