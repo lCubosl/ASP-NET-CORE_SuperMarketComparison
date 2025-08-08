@@ -1,4 +1,4 @@
-﻿@model SuperMarketComparison.Models.Cart
+﻿@model SuperMarketComparison.Models.CartItem
 
 @{
     ViewData["Title"] = "Add";
@@ -6,10 +6,10 @@
 
 <h3>Add Item</h3>
 
-<form>
+<form asp-action="Add" method="post">
     <div class="form-group col-6">
         <label for="ItemId">Item</label>
-        <select name="itemId" class="form-control" asp-items="ViewBag.ItemList">
+        <select name="itemId" class="form-select" asp-items="ViewBag.ItemList" required>
             <option value="">-- Select Item --</option>
         </select>
     </div>
