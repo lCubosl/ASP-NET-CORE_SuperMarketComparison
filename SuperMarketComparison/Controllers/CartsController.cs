@@ -14,9 +14,14 @@ namespace SuperMarketComparison.Controllers
             _context = context;
         }
 
-        // INDEX ./carts
-        // view INDEX /carts
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        // DETAILS ./carts/details
+        // view DETAILS /carts/details/{id}
+        public async Task<IActionResult> Details(int id)
         {
             var cart = await _context.Carts
                 .Include(c => c.CartItems)
@@ -26,7 +31,7 @@ namespace SuperMarketComparison.Controllers
                 .Include(c => c.CartItems)
                     .ThenInclude(ci => ci.ItemStorePrice)
                         .ThenInclude(isp => isp.Store)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (cart == null)
                 return NotFound();
