@@ -1,7 +1,28 @@
-﻿@model SuperMarketComparison.Models.Cart
+﻿@model List<SuperMarketComparison.Models.Cart>
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h3><i class="fa-solid fa-cart-shopping"></i> My Carts</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cart ID</th>
+            <th class="text-end">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td class="text-end">
+                    <a class="btn btn-sm btn-info text-light" asp-action="Details" asp-route-id="@item.Id">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

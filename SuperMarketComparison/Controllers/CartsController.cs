@@ -14,9 +14,13 @@ namespace SuperMarketComparison.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var carts = await _context.Carts
+                .Include(c => c.CartItems)
+                .ToListAsync();
+
+            return View(carts);
         }
 
         // DETAILS ./carts/details
