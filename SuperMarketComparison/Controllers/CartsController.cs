@@ -120,5 +120,30 @@ namespace SuperMarketComparison.Controllers
 
             return RedirectToAction("Index");
         }
+
+        // CREATE instance in db Cart
+        [HttpPost]
+        public async Task<IActionResult> Create()
+        {
+            var item = new Cart();
+            _context.Carts.Add(item);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+        // REMOVE instance in db Cart
+        [HttpPost, ActionName("DeleteCart")]
+        public async Task<IActionResult> DeleteCart(int id)
+        {
+            var item = await _context.Carts.FindAsync(id);
+            if (item != null)
+            {
+                _context.Carts.Remove(item);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
