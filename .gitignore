@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/SuperMarketComparison/Migrations/20250810113818_updating db is running into migration issues and errors trying to fix by addind a seed item with hard coded values.cs
+/SuperMarketComparison/Migrations/20250810113818_updating db is running into migration issues and errors trying to fix by addind a seed item with hard coded values.Designer.cs
