@@ -11,6 +11,6 @@ namespace SuperMarketComparison.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         [DataType(DataType.Date)]
-        public DateTime CompletedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? CompletedAt { get; set; } // nullable
     }
 }

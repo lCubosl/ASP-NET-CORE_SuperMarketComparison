@@ -48,8 +48,8 @@ namespace SuperMarketComparison.Data
             modelBuilder.Entity<Cart>().HasData(
                 new Cart { 
                     Id=1,
-                    CreatedAt= new DateTime(2025, 8, 9, 0, 0, 0, DateTimeKind.Utc),
-                    CompletedAt= new DateTime(2025,8,9,0,0,0, DateTimeKind.Utc)
+                    CreatedAt= new DateTime(2025,8,9,0,0,0, DateTimeKind.Utc),
+                    CompletedAt= null
                 });
 
             // SEED ITEM create CARTITEM on db
