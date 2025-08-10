@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20250810113818_updating db is running into migration issues and errors trying to fix by addind a seed item with hard coded values.cs\**" />
+    <Compile Remove="Migrations\20250810113818_updating db is running into migration issues and errors trying to fix by addind a seed item with hard coded values.Designer.cs\**" />
+    <Content Remove="Migrations\20250810113818_updating db is running into migration issues and errors trying to fix by addind a seed item with hard coded values.cs\**" />
+    <Content Remove="Migrations\20250810113818_updating db is running into migration issues and errors trying to fix by addind a seed item with hard coded values.Designer.cs\**" />
+    <EmbeddedResource Remove="Migrations\20250810113818_updating db is running into migration issues and errors trying to fix by addind a seed item with hard coded values.cs\**" />
+    <EmbeddedResource Remove="Migrations\20250810113818_updating db is running into migration issues and errors trying to fix by addind a seed item with hard coded values.Designer.cs\**" />
+    <None Remove="Migrations\20250810113818_updating db is running into migration issues and errors trying to fix by addind a seed item with hard coded values.cs\**" />
+    <None Remove="Migrations\20250810113818_updating db is running into migration issues and errors trying to fix by addind a seed item with hard coded values.Designer.cs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.7">
