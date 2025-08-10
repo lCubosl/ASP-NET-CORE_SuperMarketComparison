@@ -46,7 +46,11 @@ namespace SuperMarketComparison.Data
 
             // SEED ITEM create test CART on db
             modelBuilder.Entity<Cart>().HasData(
-                new Cart { Id=1 });
+                new Cart { 
+                    Id=1,
+                    CreatedAt= new DateTime(2025, 8, 9, 0, 0, 0, DateTimeKind.Utc),
+                    CompletedAt= new DateTime(2025,8,9,0,0,0, DateTimeKind.Utc)
+                });
 
             // SEED ITEM create CARTITEM on db
             modelBuilder.Entity<CartItem>().HasData(
