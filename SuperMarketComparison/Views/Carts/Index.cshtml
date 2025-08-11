@@ -19,6 +19,7 @@
             <th>Cart ID</th>
             <th>Cart Created</th>
             <th>Cart Completed</th>
+            <th>Mark Bought</th>
             <th class="text-end">Actions</th>
         </tr>
     </thead>
@@ -33,6 +34,18 @@
                         ? item.CompletedAt.Value.ToString("dd-MM-yyyy")
                         : "-"
                     )
+                </td>
+                <td>
+                    @if (!item.CompletedAt.HasValue)
+                    {
+                        <form asp-action="MarkAsBought" method="post" style="display:inline" asp-route-id="@item.Id" onsubmit="return confirm('Are you sure you want Mark this cart as Bought?');">
+                            <input type="submit" class="btn btn-sm btn-primary" value="Bought" />
+                        </form>
+                    }
+                    else
+                    {
+                        <span class="text-success"><i class="fa-solid fa-square-check fa-2x"></i></span>
+                    }
                 </td>
                 <td class="text-end">
                     <a class="btn btn-sm btn-info text-light" asp-action="Details" asp-route-id="@item.Id">Edit</a>

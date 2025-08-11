@@ -145,5 +145,19 @@ namespace SuperMarketComparison.Controllers
 
             return RedirectToAction("Index");
         }
+
+        // UPDATE instance in Cart -> UPDATES CompletedAt
+        [HttpPost]
+        public async Task<IActionResult> MarkAsBought(int id)
+        {
+            var item = _context.Carts.Find(id);
+            if (item == null)
+                return NotFound();
+
+            item.CompletedAt = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
     }
 }
