@@ -20,6 +20,9 @@
             <th>Cart Created</th>
             <th>Cart Completed</th>
             <th>Mark Bought</th>
+            <th>Min Est. €</th>
+            <th>Max Est. €</th>
+            <th>Actual €</th>
             <th class="text-end">Actions</th>
         </tr>
     </thead>
@@ -35,11 +38,32 @@
                         : "-"
                     )
                 </td>
+
                 <td>
                     @if (!item.CompletedAt.HasValue)
                     {
-                        <form asp-action="MarkAsBought" method="post" style="display:inline" asp-route-id="@item.Id" onsubmit="return confirm('Are you sure you want Mark this cart as Bought?');">
-                            <input type="submit" class="btn btn-sm btn-primary" value="Bought" />
+                        <form 
+                            asp-action="MarkAsBought" 
+                            method="post" 
+                            style="display:inline" 
+                            asp-route-id="@item.Id" 
+                            onsubmit="return confirm('Are you sure you want Mark this cart as Bought?');"
+                        >
+                            <div 
+                                class="input-group input-group-sm" 
+                                style="max-width:150px; display:inline-flex"
+                            >
+                                <input 
+                                    type="number" 
+                                    name="actualPrice" 
+                                    step="0.01" 
+                                    class="form-control"
+                                    placeholder="Actual Price €"
+                                    required
+                                />
+                                <button type="submit" class="btn btn-sm btn-primary">Bought</button>
+                                @* <input type="submit" class="btn btn-sm btn-primary" value="Bought" /> *@
+                            </div>
                         </form>
                     }
                     else
@@ -47,6 +71,15 @@
                         <span class="text-success"><i class="fa-solid fa-square-check fa-2x"></i></span>
                     }
                 </td>
+
+                <td>@item.MinEstPrice.ToString("N2") €</td>
+                <td>@item.MaxEstPrice.ToString("N2") €</td>
+                <td>@(item.ActualPrice.HasValue
+                        ? item.ActualPrice.Value.ToString("N2") + "€"
+                        : "-"
+                    )
+                </td>
+
                 <td class="text-end">
                     <a class="btn btn-sm btn-info text-light" asp-action="Details" asp-route-id="@item.Id">Edit</a>
                     <form asp-action="DeleteCart" method="post" style="display:inline" asp-route-id="@item.Id" onsubmit="return confirm('Are you sure you want to delete this item?');">

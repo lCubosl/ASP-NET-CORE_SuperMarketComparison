@@ -12,5 +12,12 @@ namespace SuperMarketComparison.Models
 
         [DataType(DataType.Date)]
         public DateTime? CompletedAt { get; set; } // nullable
+
+        [DataType(DataType.Currency)]
+        public decimal MinEstPrice { get; set; }
+        [DataType(DataType.Currency)]
+        public decimal MaxEstPrice { get; set; }
+        [DataType(DataType.Currency)]
+        public decimal? ActualPrice { get; set; }
     }
 }

@@ -54,6 +54,12 @@ namespace SuperMarketComparison.Controllers
                 }
             }
 
+            cart.MinEstPrice = totalMin;
+            cart.MaxEstPrice = totalMax;
+            
+            _context.Carts.Update(cart);
+            await _context.SaveChangesAsync();
+
             ViewBag.totalMin = totalMin;
             ViewBag.totalMax = totalMax;
 
@@ -148,13 +154,16 @@ namespace SuperMarketComparison.Controllers
 
         // UPDATE instance in Cart -> UPDATES CompletedAt
         [HttpPost]
-        public async Task<IActionResult> MarkAsBought(int id)
+        public async Task<IActionResult> MarkAsBought(int id, decimal actualPrice)
         {
             var item = _context.Carts.Find(id);
             if (item == null)
                 return NotFound();
 
             item.CompletedAt = DateTime.UtcNow;
+            item.ActualPrice = actualPrice;
+
+            _context.Update(item);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");

@@ -49,7 +49,11 @@ namespace SuperMarketComparison.Data
                 new Cart { 
                     Id=1,
                     CreatedAt= new DateTime(2025,8,9,0,0,0, DateTimeKind.Utc),
-                    CompletedAt= null
+                    CompletedAt= null,
+                    MinEstPrice = 0m,
+                    MaxEstPrice = 0m,
+                    ActualPrice = null
+
                 });
 
             // SEED ITEM create CARTITEM on db
