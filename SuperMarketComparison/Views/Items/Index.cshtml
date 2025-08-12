@@ -6,7 +6,9 @@
 
 <h3>
     <i class="fa-solid fa-apple-whole"></i> Items 
-    <a class="btn btn-primary fw-bolder" asp-controller="Items" asp-action="Create">+</a>
+    <a class="btn btn-primary fw-bolder" asp-controller="Items" asp-action="Create">
+        <i class="fa-solid fa-plus text-white"></i>
+    </a>
 </h3>
 
 <table class="table">
@@ -80,8 +82,12 @@
                     }
                 </td>
                 <td class="text-end">
-                    <a class="btn btn-sm btn-info text-light" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-sm btn-info text-light" asp-action="Edit" asp-route-id="@item.Id">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
                 </td>
             </tr>
         }

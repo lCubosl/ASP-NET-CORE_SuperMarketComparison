@@ -9,7 +9,12 @@
     var maxPrice = Model.Prices.Max(p => (decimal?)p.Price);
 }
 
-<h3>@Model.Name <a class="btn btn-primary fw-bolder" asp-controller="ItemStorePrices" asp-action="Create" asp-route-id="@Model.Id">+</a></h3>
+<h3>
+    @Model.Name 
+    <a class="btn btn-primary fw-bolder" asp-controller="ItemStorePrices" asp-action="Create" asp-route-id="@Model.Id">
+        <i class="fa-solid fa-plus text-white"></i>
+    </a>
+</h3>
 
 <table class="table">
     <thead>
@@ -43,8 +48,12 @@
                 <td class="text-end">
                     @* Update buttons and add functionality to them *@
                     <a asp-controller="ItemStorePrices" asp-action="Update" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Update</a>
-                    <a asp-controller="ItemStorePrices" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-info text-light">Edit</a>
-                    <a asp-controller="ItemStorePrices" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                    <a asp-controller="ItemStorePrices" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-info text-light">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                    <a asp-controller="ItemStorePrices" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
                 </td>
             </tr>
         }
