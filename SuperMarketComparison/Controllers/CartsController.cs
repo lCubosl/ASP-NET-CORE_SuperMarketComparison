@@ -98,7 +98,13 @@ namespace SuperMarketComparison.Controllers
                 .FirstOrDefaultAsync();
 
             if (price == null)
-                return NotFound("No storePrice for item");
+            {
+                return RedirectToAction(
+                    "Create",
+                    "ItemStorePrices",
+                    new {id = itemId}
+                );
+            }
 
             var newCartItem = new CartItem
             {

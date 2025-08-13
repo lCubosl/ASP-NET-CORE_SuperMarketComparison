@@ -17,6 +17,7 @@ namespace SuperMarketComparison.Controllers
 
         // CREATE
         // view CREATE /itemstoreprices/create/{id}
+        [HttpGet("/ItemStorePrices/Create/{id}")]
         public async Task<IActionResult> Create(int id)
         {
             var item = await _context.Items
@@ -47,26 +48,12 @@ namespace SuperMarketComparison.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([Bind("ItemId, StoreId, Price, LastUpdate")] ItemStorePrice model)
         {
-            // check if post is at least  getting triggered
-            Console.WriteLine("POST for itemstoreprice triggered");
-
             if (ModelState.IsValid)
             {
-                // checking if model isvalid
-                Console.WriteLine("ModelState IS VALID");
                 _context.ItemStorePrices.Add(model);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("Details", "Items", new { id = model.ItemId });
-            }
-
-            // log for validation errors REMOVE LATER
-            // logs what fields are empty (ItemId, StoreId, Price, etc...)
-            // ex: Key: Item Error: The Item field is required
-            foreach (var state in ModelState)
-            {
-                foreach (var error in state.Value.Errors)
-                    Console.WriteLine($"Key: {state.Key} Error: {error.ErrorMessage}");
             }
 
             var stores = await _context.Stores.ToListAsync();
