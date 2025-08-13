@@ -68,13 +68,14 @@ namespace SuperMarketComparison.Controllers
 
         // ADD ./carts
         // view ADD /carts/add
-        public async Task<IActionResult> Add()
+        [HttpGet("Carts/Add/{cartId}")]
+        public async Task<IActionResult> Add(int cartId)
         {
             var item = await _context.Items.ToListAsync();
             if (item == null)
                 return NotFound();
 
-            var cart = await _context.Carts.FirstOrDefaultAsync();
+            var cart = await _context.Carts.FindAsync(cartId);
             if (cart == null) 
                 return NotFound();
 
@@ -86,13 +87,13 @@ namespace SuperMarketComparison.Controllers
 
         // ADD CREATE new instance in db cartitems
         [HttpPost]
-        public async Task<IActionResult> Add(int itemId)
+        public async Task<IActionResult> Add(int cartId, int itemId)
         {
             if (itemId == 0)
                 // status code 400
                 return BadRequest("Item must be selecterd");
 
-            var cart = await _context.Carts.FirstOrDefaultAsync();
+            var cart = await _context.Carts.FindAsync(cartId);
             if(cart == null)
                 return NotFound();
 

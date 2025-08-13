@@ -60,7 +60,17 @@
             </tr>
         }        
         <tr>
-            <td><a asp-action="Add" class="btn btn-sm btn-primary"><i class="fa-solid fa-plus text-white"></i> Item</a></td>
+            <td>
+                <a 
+                    asp-controller="Carts"
+                    asp-action="Add" 
+                    asp-route-id="@Model.Id"
+                    class="btn btn-sm btn-primary"
+                >
+                    <i class="fa-solid fa-plus text-white"></i> 
+                    Item
+                </a>
+            </td>
             <td>-</td>
             <td>-</td>
             <td>-</td>
