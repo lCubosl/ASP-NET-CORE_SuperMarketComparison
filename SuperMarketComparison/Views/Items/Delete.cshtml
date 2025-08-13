@@ -9,7 +9,7 @@
 <p>@Model.Name</p>
 <p>@Model.Description</p>
 
-<form asp-action="Delete" method="post">
+<form asp-controller="Items" asp-action="Delete" method="post">
     <input type="hidden" asp-for="Id" />
     <input type="submit" class="btn btn-danger" value="Delete" />
     <a asp-action="Index" class="btn btn-secondary">Back</a>

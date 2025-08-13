@@ -89,9 +89,13 @@ namespace SuperMarketComparison.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var item = await _context.Items.FindAsync(id);
+            var item = await _context.Items
+                .Include(i => i.Prices)
+                .FirstOrDefaultAsync(i => i.Id == id);
+
             if (item != null)
             {
+                _context.ItemStorePrices.RemoveRange(item.Prices);
                 _context.Items.Remove(item);
                 await _context.SaveChangesAsync();
             }
