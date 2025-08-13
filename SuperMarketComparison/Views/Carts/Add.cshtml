@@ -9,7 +9,7 @@
     Can't find the Item you are looking for? Try <a class="btn btn-sm btn-primary" asp-controller="Items" asp-action="Create">New Item</a>
 </p>
 
-<form asp-action="Add" method="post">
+<form asp-action="Add" asp-route-id="@ViewBag.CartId" method="post">
     <div class="form-group col-6">
         <label for="ItemId">Item</label>
         <select name="itemId" class="form-select" asp-items="ViewBag.ItemList" required>
@@ -19,6 +19,6 @@
 
     <div class="mt-2">
         <button type="submit" class="btn btn-primary">Submit</button>
-        <a asp-controller="Carts" asp-action="Index" class="btn btn-secondary">Back</a>
+        <a asp-controller="Carts" asp-action="Details" asp-route-id="@ViewBag.cartId" class="btn btn-secondary">Back</a>
     </div>
 </form>

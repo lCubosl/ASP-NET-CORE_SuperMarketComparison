@@ -71,11 +71,15 @@ namespace SuperMarketComparison.Controllers
         public async Task<IActionResult> Add()
         {
             var item = await _context.Items.ToListAsync();
-
             if (item == null)
                 return NotFound();
 
+            var cart = await _context.Carts.FirstOrDefaultAsync();
+            if (cart == null) 
+                return NotFound();
+
             ViewBag.ItemList = new SelectList(item, "Id", "Name");
+            ViewBag.CartId = cart.Id;
 
             return View();
         }
@@ -116,7 +120,7 @@ namespace SuperMarketComparison.Controllers
             _context.CartItems.Add(newCartItem);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Carts", new {id = cart.Id});
         }
 
         // REMOVE instance in db cartitems
