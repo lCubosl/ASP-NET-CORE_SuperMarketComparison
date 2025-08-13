@@ -4,6 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
+@{
+    decimal totalMinEst = Model.Sum(c => c.MinEstPrice);
+    decimal totalMaxEst = Model.Sum(c => c.MaxEstPrice);
+    decimal totalActual = Model.Where(c => c.ActualPrice.HasValue)
+                            .Sum(c => c.ActualPrice.Value);
+}
+
 <h3>
     <i class="fa-solid fa-cart-shopping"></i> My Carts
     <form asp-controller="Carts" asp-action="Create" method="post" style="display:inline" onsubmit="return confirm('Are you sure you want to Create a new Cart');" ">
@@ -105,9 +112,9 @@
             <td>-</td>
             <td>-</td>
             <td>-</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="fw-bold">@totalMinEst.ToString("N2") €</td>
+            <td class="fw-bold">@totalMaxEst.ToString("N2") €</td>
+            <td class="fw-bold">@totalActual.ToString("N2") €</td>
             <td class="text-end">-</td>
         </tr>
     </tbody>
