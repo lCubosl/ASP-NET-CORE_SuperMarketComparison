@@ -11,6 +11,7 @@
         <tr>
             <th>Item</th>
             <th>Added</th>
+            <th>Qty.</th>
             <th>Min Price</th>
             <th>Max Price</th>
             <th class="text-end">Action</th>
@@ -43,8 +44,10 @@
             var maxPrice = allPrices.Any() ? allPrices.Max(p => p.Price) : (decimal?)null;
 
             <tr>
+                @* ITEM name *@
                 <td>@currentItem?.Name</td>
-                
+
+                @* ITEM marked *@
                 <td>
                     <input
                         type="checkbox"
@@ -54,6 +57,22 @@
                     />
                 </td>
 
+                @* Quantity of ITEMs *@
+                <td>
+                    <div 
+                        class="input-group input-group-sm"
+                        style="max-width:50px; display:inline-flex"
+                    >
+                        <input 
+                            type="number" 
+                            class="form-control" 
+                            step="1"
+                            value="1"
+                        />
+                    </div>
+                </td>
+
+                @* ITEM minumum price *@
                 <td>
                     @if (minPrice.HasValue)
                     {
@@ -61,6 +80,7 @@
                     }
                 </td>
 
+                @* ITEM maximum price *@
                 <td>
                     @if (maxPrice.HasValue)
                     {
@@ -68,6 +88,7 @@
                     }
                 </td>
 
+                @* DELETE ITEM from cart *@
                 <td class="text-end">
                     <form asp-action="Delete" method="post" asp-route-id="@item.Id" onsubmit="return confirm('Are you sure you want to delete this item?');">
                         <input type="submit" class="btn btn-sm btn-danger" value="Delete" />
@@ -76,8 +97,10 @@
             </tr>
         } 
 
+        @* TOTAL: sum of min price, sum of max price *@
         <tr>
             <td class="fw-bold">TOTAL:</td>
+            <td>-</td>
             <td>-</td>
             <td class="fw-bold">@ViewBag.TotalMin.ToString("N2") €</td>
             <td class="fw-bold">@ViewBag.TotalMax.ToString("N2") €</td>
