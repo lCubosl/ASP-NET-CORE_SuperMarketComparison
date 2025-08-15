@@ -15,7 +15,7 @@ namespace SuperMarketComparison.Migrations
                 table: "CartItems",
                 type: "int",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 1);
 
             migrationBuilder.UpdateData(
                 table: "CartItems",
