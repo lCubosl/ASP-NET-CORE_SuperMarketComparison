@@ -14,5 +14,6 @@
         public Cart? Cart { get; set; }
 
         public bool IsChecked { get; set; } = false;
+        public int Quantity { get; set; } = 1;
     }
 }
