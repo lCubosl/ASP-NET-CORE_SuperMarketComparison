@@ -124,9 +124,9 @@ namespace SuperMarketComparison.Controllers
             return RedirectToAction("Details", "Carts", new {id = cart.Id});
         }
 
-        // REMOVE instance in db cartitems
+        // REMOVE item from db cartitems
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int cartId, int id)
         {
             var item = await _context.CartItems.FindAsync(id);
             if (item != null)
@@ -135,7 +135,11 @@ namespace SuperMarketComparison.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction("Index");
+            var cart = await _context.Carts.FindAsync(cartId);
+            if (cart == null)
+                return NotFound();
+
+            return RedirectToAction("Details", "Carts", new { id = cart.Id });
         }
 
         // CREATE instance in db Cart
