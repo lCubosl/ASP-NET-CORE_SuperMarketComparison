@@ -142,6 +142,28 @@ namespace SuperMarketComparison.Controllers
             return RedirectToAction("Details", "Carts", new { id = cart.Id });
         }
 
+        // UPDATE QUANTITY of item in db Cart
+        [HttpPost]
+        public async Task<IActionResult> UpdateQuantity([FromBody] CartQuantityUpdate model)
+        {
+            var cartItem = await _context.CartItems.FindAsync(model.Id);
+            if (cartItem == null)
+                return NotFound();
+
+            cartItem.Quantity = model.Quantity;
+            _context.CartItems.Update(cartItem);
+            await _context.SaveChangesAsync();
+
+            return Ok(new {success = true});
+        }
+
+        public class CartQuantityUpdate
+        {
+            public int Id { get; set; }
+            public int CartId { get; set; }
+            public int Quantity { get; set; }
+        }
+
         // CREATE instance in db Cart
         [HttpPost]
         public async Task<IActionResult> Create()
