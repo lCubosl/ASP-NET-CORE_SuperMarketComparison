@@ -79,7 +79,7 @@
                 <td>
                     @if (minPrice.HasValue)
                     {
-                        <span>@minPrice?.ToString("N2") €</span>
+                        <span>@((minPrice * item.Quantity)?.ToString("N2")) €</span>
                     }
                 </td>
 
@@ -87,7 +87,7 @@
                 <td>
                     @if (maxPrice.HasValue)
                     {
-                        <span>@(maxPrice?.ToString("N2") ?? "N/A") €</span>
+                        <span>@((maxPrice * item.Quantity)?.ToString("N2") ?? "N/A") €</span>
                     }
                 </td>
 
