@@ -49,8 +49,8 @@ namespace SuperMarketComparison.Controllers
 
                 if (item?.Prices != null && item.Prices.Any())
                 {
-                    totalMin += item.Prices.Min(p => p.Price);
-                    totalMax += item.Prices.Max(p => p.Price);
+                    totalMin += item.Prices.Min(p => p.Price) * cartItem.Quantity;
+                    totalMax += item.Prices.Max(p => p.Price) * cartItem.Quantity;
                 }
             }
 
