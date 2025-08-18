@@ -6,7 +6,7 @@
 
 <h3><i class="fa-solid fa-cart-shopping"></i> My Shopping Cart</h3>
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>Item</th>
@@ -31,7 +31,8 @@
             </td>
             <td>-</td>
             <td>-</td>
-            <td>-</td>
+            <td class="bg-success-subtle">-</td>
+            <td class="bg-danger-subtle">-</td>
             <td class="text-end">-</td>
         </tr>
 
@@ -76,7 +77,7 @@
                 </td>
 
                 @* ITEM minumum price *@
-                <td>
+                <td class="bg-success-subtle">
                     @if (minPrice.HasValue)
                     {
                         <span>@((minPrice * item.Quantity)?.ToString("N2")) €</span>
@@ -84,7 +85,7 @@
                 </td>
 
                 @* ITEM maximum price *@
-                <td>
+                <td class="bg-danger-subtle">
                     @if (maxPrice.HasValue)
                     {
                         <span>@((maxPrice * item.Quantity)?.ToString("N2") ?? "N/A") €</span>
@@ -111,8 +112,8 @@
             <td class="fw-bold">TOTAL:</td>
             <td>-</td>
             <td>-</td>
-            <td class="fw-bold">@ViewBag.TotalMin.ToString("N2") €</td>
-            <td class="fw-bold">@ViewBag.TotalMax.ToString("N2") €</td>
+            <td class="fw-bold bg-success-subtle">@ViewBag.TotalMin.ToString("N2") €</td>
+            <td class="fw-bold bg-danger-subtle">@ViewBag.TotalMax.ToString("N2") €</td>
             <td class="text-end">-</td>
         </tr>
     </tbody>
