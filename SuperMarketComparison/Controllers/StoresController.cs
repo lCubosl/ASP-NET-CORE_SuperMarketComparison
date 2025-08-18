@@ -15,10 +15,18 @@ namespace SuperMarketComparison.Controllers
 
         // INDEX
         // view INDEX
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var store = await _context.Stores.ToListAsync();
-            return View(store);
+            var store = from d in _context.Stores
+                        select d;
+            
+            if(!string.IsNullOrEmpty(searchString))
+            {
+                store = store.Where(d => d.Name.Contains(searchString));
+                return View(await store.ToListAsync());
+            }
+
+            return View(await store.ToListAsync());
         }
 
         // CREATE
