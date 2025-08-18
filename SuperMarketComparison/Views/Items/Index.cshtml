@@ -11,7 +11,7 @@
     </a>
 </h3>
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>Name</th>
@@ -34,7 +34,7 @@
             var minPriceEntry = prices.FirstOrDefault(p => p.Price == minPrice);
             var maxPriceEntry = prices.FirstOrDefault(p => p.Price == maxPrice);
 
-            <tr>
+            <tr onclick="window.location='@Url.Action("Details", "Items", new {id = item.Id})'">
                 @* change text to less bold *@
                 <td>
                     <a class="hover-item text-decoration-none fw-bold text-dark" asp-action="Details" asp-route-id="@item.Id">
