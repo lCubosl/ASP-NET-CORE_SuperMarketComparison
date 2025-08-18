@@ -30,13 +30,20 @@ namespace SuperMarketComparison.Controllers
 
         // INDEX
         // view INDEX
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var item = await _context.Items
-                .Include (i => i.Prices)
+            var item = _context.Items
+                .Include(i => i.Prices)
                 .ThenInclude(isp => isp.Store)
-                .ToListAsync();
-            return View(item);
+                .AsQueryable();
+
+            if(!string.IsNullOrEmpty(searchString))
+            {
+                item = item.Where(d => d.Name.Contains(searchString));
+                return View(await item.ToListAsync());
+            }
+
+            return View(await item.ToListAsync());
         }
         // view CREATE
         public IActionResult Create()
