@@ -5,7 +5,10 @@
 }
 
 <h3>
-    <i class="fa-solid fa-apple-whole"></i> Items 
+    <a style="text-decoration:none" class="fw-bold text-black" asp-controller="Items" asp-action="Index">
+        <i class="fa-solid fa-apple-whole"></i> Items 
+    </a>
+    
     <a class="btn btn-primary fw-bolder" asp-controller="Items" asp-action="Create">
         <i class="fa-solid fa-plus text-white"></i>
     </a>
@@ -20,7 +23,13 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Name</th>
+            <th>
+                <a style="text-decoration:none" class="fw-bold text-black" asp-action="Index" asp-route-sortOrder="@ViewBag.NameSortParam">
+                    <i class="fa-solid fa-sort"></i>
+                    Name
+                </a>
+            </th>
+            
             <th>Description</th>
             <th>Min Price</th>
             <th>Max Price</th>

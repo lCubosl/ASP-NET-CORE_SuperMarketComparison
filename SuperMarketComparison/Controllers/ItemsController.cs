@@ -30,21 +30,38 @@ namespace SuperMarketComparison.Controllers
 
         // INDEX
         // view INDEX
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, string sortOrder)
         {
+            ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "name_asc";
+
             var item = _context.Items
                 .Include(i => i.Prices)
                 .ThenInclude(isp => isp.Store)
                 .AsQueryable();
 
+            // filtering
             if(!string.IsNullOrEmpty(searchString))
             {
                 item = item.Where(d => d.Name.Contains(searchString));
                 return View(await item.ToListAsync());
             }
 
+            // sorting
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    item = item.OrderByDescending(i => i.Name);
+                    break;
+                case "name_asc":
+                    item = item.OrderBy(i => i.Name); 
+                    break;
+                default:
+                    break;
+            }
+
             return View(await item.ToListAsync());
         }
+
         // view CREATE
         public IActionResult Create()
         {
