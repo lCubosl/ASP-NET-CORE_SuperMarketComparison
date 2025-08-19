@@ -24,9 +24,22 @@
     <thead>
         <tr>
             <th>
-                <a style="text-decoration:none" class="fw-bold text-black" asp-action="Index" asp-route-sortOrder="@ViewBag.NameSortParam">
+                <a 
+                    style="text-decoration:none" 
+                    class="fw-bold text-black" 
+                    asp-action="Index" 
+                    asp-route-sortOrder="@ViewBag.NameSortParam"
+                >
                     <i class="fa-solid fa-sort"></i>
                     Name
+                    @if (ViewBag.CurrentSort == "name_asc")
+                    {
+                        <span>(A-Z)</span>
+                    }
+                    else if (ViewBag.CurrentSort == "name_desc")
+                    {
+                        <span>(Z-A)</span>
+                    }
                 </a>
             </th>
             
