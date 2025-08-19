@@ -9,7 +9,27 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Item</th>
+            <th>
+                <a
+                    style="text-decoration:none"
+                    class="fw-bold text-black"
+                    asp-action="Details"
+                    asp-route-id="@Model.Id"
+                    asp-route-sortOrder="@ViewBag.NameSortParam"
+                >
+                    <i class="fa-solid fa-sort"></i>
+                    Item
+                    @if (ViewBag.CurrentSort == "name_asc")
+                    {
+                        <span>(A-Z)</span>
+                    }
+                    else if (ViewBag.CurrentSort == "name_desc")
+                    {
+                        <span>(Z-A)</span>
+                    }
+                </a>
+            </th>
+
             <th>Added</th>
             <th>Qty.</th>
             <th>Min Price</th>

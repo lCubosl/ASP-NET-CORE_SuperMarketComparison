@@ -25,8 +25,16 @@ namespace SuperMarketComparison.Controllers
 
         // DETAILS ./carts/details
         // view DETAILS /carts/details/{id}
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string sortOrder)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParam = sortOrder switch
+            {
+                "name_asc" => "name_desc",
+                "name_desc" => "",
+                _ => "name_asc"
+            };
+
             var cart = await _context.Carts
                 .Include(c => c.CartItems)
                     .ThenInclude(ci => ci.ItemStorePrice)
@@ -40,6 +48,24 @@ namespace SuperMarketComparison.Controllers
             if (cart == null)
                 return NotFound();
 
+            // sorting logic
+            switch (sortOrder)
+            {
+                case "name_asc":
+                    cart.CartItems = cart.CartItems
+                        .OrderBy(ci => ci.ItemStorePrice.Item.Name)
+                        .ToList();
+                    break;
+                case "name_desc":
+                    cart.CartItems = cart.CartItems
+                        .OrderByDescending(ci => ci.ItemStorePrice.Item.Name)
+                        .ToList();
+                    break;
+                default:
+                    break;
+            }
+
+            // totals
             decimal totalMin = 0;
             decimal totalMax = 0;
 
