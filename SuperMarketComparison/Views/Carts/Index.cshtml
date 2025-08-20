@@ -123,3 +123,14 @@
         </tr>
     </tbody>
 </table>
+
+@* scritp to prevent the table-row onclick from triggering if a form, input, btutton, etc is clicked *@
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("form, input, button, select, textarea").forEach(el => {
+        el.addEventListener("click", function (e) {
+            e.stopPropagation();
+        });
+    });
+});
+</script>
